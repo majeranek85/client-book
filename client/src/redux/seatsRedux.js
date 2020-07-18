@@ -54,6 +54,7 @@ export const addSeatRequest = (seat) => {
       let res = await axios.post(`${API_URL}/seats`, seat);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       dispatch(addSeat(res));
+      //console.log(seat);
       dispatch(endRequest({ name: 'ADD_SEAT' }));
 
     } catch(e) {
@@ -74,9 +75,9 @@ const initialState = {
 
 export default function reducer(statePart = initialState, action = {}) {
   switch (action.type) {
-    case LOAD_SEATS: 
+    case LOAD_SEATS:
       return { ...statePart, data: [...action.payload] };
-    case ADD_SEAT: 
+    case ADD_SEAT:
       return { ...statePart, data: [...statePart.data, action.payload] }
     case START_REQUEST:
       return { ...statePart, requests: {...statePart.requests, [action.payload.name]: { pending: true, error: null, success: false }} };
